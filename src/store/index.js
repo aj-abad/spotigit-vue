@@ -42,7 +42,7 @@ const store = new Vuex.Store({
     isLoggedIn: (state) => !!state.username && !!state.token,
     username: (state) => state.username,
     token: (state) => state.token,
-    userId: (state) => state.userId,
+    userId: (state) => parseInt(state.userId) || null,
   },
 });
 export default store;

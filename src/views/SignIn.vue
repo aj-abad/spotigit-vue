@@ -89,8 +89,10 @@ export default {
       this.$http
         .post("/auth/signin", { username, password })
         .then(({ data }) => {
-          this.$store.dispatch("signIn", { username, token: data });
-          this.$router.replace("/home"); 
+          const { token } = data;
+          const { username, id: userId } = data.user;
+          this.$store.dispatch("signIn", { token, username, userId });
+          this.$router.replace("/home");
         })
         .catch((err) => {
           this.errorDialog = true;

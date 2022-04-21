@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="row" v-if="playlists">
-      <v-col cols="12" sm="6" lg="4" xl="3" v-for="playlist in playlists" :key="playlist.id">
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+        xl="3"
+        v-for="playlist in playlists"
+        :key="playlist.id"
+      >
         <v-card outlined :to="`/playlist/${playlist.id}`" draggable="false">
           <div class="primarylighter">
             <img
@@ -11,9 +18,7 @@
               draggable="false"
             />
             <v-card-title>
-              <v-card-title-text>
-                <div class="headline">{{ playlist.name }}</div>
-              </v-card-title-text>
+              <div class="headline">{{ playlist.name }}</div>
             </v-card-title>
           </div>
         </v-card>

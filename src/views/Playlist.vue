@@ -224,17 +224,10 @@ export default {
 }
 
 .deleted {
-  position: relative !important;
 
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background: red;
-    top: 50%;
-    left: 0;
-    opacity: 1 !important;
+  .d-block *{
+    text-decoration: line-through
   }
+  
 }
 </style>

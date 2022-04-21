@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
-import '@mdi/font/css/materialdesignicons.css'
+import Vue from "vue";
+import Vuetify from "vuetify/lib/framework";
+import "@mdi/font/css/materialdesignicons.css";
 import "@fontsource/nunito-sans/200.css";
 import "@fontsource/nunito-sans/300.css";
 import "@fontsource/nunito-sans/400.css";
@@ -17,9 +17,11 @@ export default new Vuetify({
     },
     themes: {
       light: {
-        primary: "#69361e",
-        anchor: "#4f2715",
-        bglight: "#f4e8e1",
+        primary: "#f05133",
+        primarylight: "#F2AD9B",
+        primarylighter: "#FFE6D9",
+        primarylightest: "#FFF6E9",
+        anchor: "#e04123",
       },
     },
   },

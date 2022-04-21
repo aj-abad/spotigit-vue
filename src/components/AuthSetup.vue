@@ -24,6 +24,7 @@ export default {
         });
     },
     setToken() {
+      console.log("setToken");
       this.$http.defaults.headers.common["Authorization"] = this.token
         ? `Bearer ${this.token}`
         : null;
@@ -34,6 +35,8 @@ export default {
       this.setToken();
     },
   },
-  created() {},
+  created() {
+    this.setToken()
+  },
 };
 </script>

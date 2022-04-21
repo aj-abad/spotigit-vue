@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 
 import SignIn from "../views/SignIn";
 import SignUp from "../views/SignUp";
+import Home from "../views/Home";
+import Playlist from "../views/Playlist";
 
 Vue.use(VueRouter);
 const routes = [
@@ -22,6 +24,24 @@ const routes = [
     meta: {
       title: "Create an account",
       requiresGuest: true,
+    },
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
+    meta: {
+      title: "Home",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/playlist/:id",
+    name: "Playlist",
+    component: Playlist,
+    meta: {
+      title: "Playlist details",
+      requiresAuth: true,
     },
   },
 ];

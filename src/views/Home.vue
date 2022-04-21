@@ -1,15 +1,22 @@
 <template>
-  <div>
-    <Logo style="height: 200vh" />
+  <div class="d-flex">
+    <div class="main-display flex-grow-1 pa-6">
+      <div class="d-flex">
+        {{ $store.getters.getUsername }}
+      </div>
+      <h1 class="mb-4">My playlists</h1>
+      <create-playlist />
+
+      <all-playlists class="mt-8" />
+    </div>
   </div>
 </template>
 
 <script>
-import Logo from "../components/SVG/Logo";
+import CreatePlaylist from "@/components/Playlist/CreatePlaylist";
+import AllPlaylists from "../components/Playlist/AllPlaylists.vue";
 export default {
-  components: { Logo },
+  components: { CreatePlaylist,   AllPlaylists },
   name: "Home",
 };
 </script>
-
-<style lang="stylus" scoped></style>

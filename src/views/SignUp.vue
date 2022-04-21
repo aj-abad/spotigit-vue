@@ -101,7 +101,8 @@ export default {
       this.$http
         .post("/auth/signup", { username, password })
         .then(({ data }) => {
-          this.$store.dispatch("signIn", data);
+          this.$store.dispatch("signIn", {username, token: data["access_token"]});
+          this.$router.replace("/home")
         })
         .catch((err) => {
           this.errorDialog = true;

@@ -53,8 +53,8 @@
           style="background: var(--v-primarylightest-base)"
         >
           <span class="font-weight-medium">
-            Already have an account? Sign in
-            <router-link to="/">here</router-link>.
+            Don't have an account yet? Create an account
+            <router-link to="/signup">here</router-link>.
           </span>
         </v-sheet>
       </form>
@@ -78,9 +78,7 @@ export default {
   },
   computed: {
     canSignIn() {
-      return (
-        !!this.username &&!!this.password
-      );
+      return !!this.username && !!this.password;
     },
   },
   methods: {
@@ -91,7 +89,8 @@ export default {
       this.$http
         .post("/auth/signin", { username, password })
         .then(({ data }) => {
-          this.$store.dispatch("signIn", data);
+          this.$store.dispatch("signIn", { username, token: data });
+          this.$router.replace("/home"); 
         })
         .catch((err) => {
           this.errorDialog = true;

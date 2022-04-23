@@ -5,6 +5,7 @@ import SignIn from "../views/SignIn";
 import SignUp from "../views/SignUp";
 import Home from "../views/Home";
 import Playlist from "../views/Playlist";
+import Search from "../views/Search";
 
 Vue.use(VueRouter);
 const routes = [
@@ -41,6 +42,15 @@ const routes = [
     component: Playlist,
     meta: {
       title: "Playlist details",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search,
+    meta: {
+      title: "Search results",
       requiresAuth: true,
     },
   },

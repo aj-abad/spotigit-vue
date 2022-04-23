@@ -12,6 +12,7 @@
     "@mdi/font": "^6.5.95",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.1",
     "email-validator": "^2.0.4",
     "overlayscrollbars-vue": "^0.2.2",
     "vue": "^2.6.11",

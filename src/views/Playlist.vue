@@ -1,5 +1,29 @@
 <template>
   <div class="pa-6">
+    <v-dialog
+      v-if="playlist?.commits?.length"
+      v-model="commitsDialog"
+      width="32rem"
+    >
+      <v-sheet class="rounded-lg pa-4">
+        <h3 class="mb-4">Commit history</h3>
+        <div>
+          <v-list>
+            <v-list-item v-for="(commit, i) in playlist.commits" :key="i">
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ commit.commit_message }}
+                  <br />
+                  <small class="grey--text text--darken-1">
+                    {{ dayjs(commit.created_at) }}
+                  </small>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </div>
+      </v-sheet>
+    </v-dialog>
     <div v-if="playlist">
       <div class="d-flex align-center mb-8">
         <div class="playlist-img flex-shrink-0"></div>
@@ -11,18 +35,26 @@
             </router-link>
           </h2>
           <div v-if="playlist?.commits?.length" class="mt-4">
-            <v-icon> mdi-history </v-icon>
-            {{ playlist.commits.length }} commits
+            <a
+              href="#"
+              @click.prevent="commitsDialog = true"
+              class="grey--text text--darken-1 font-weight-light"
+            >
+              <v-icon> mdi-history </v-icon>
+              {{ playlist.commits.length }} commits
+            </a>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-4">
           <div v-if="playlist.user_id === $store.getters.userId">
-            <div class="mb-4">
+            <div class="mb-4 d-flex">
               <v-btn color="primary" elevation="0" @click="exportPlaylist()">
                 Export this playlist
               </v-btn>
+
+              <v-btn @click="deletePlaylist()"> Delete playlist </v-btn>
             </div>
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
@@ -119,6 +151,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 import StagedChanges from "../components/Playlist/StagedChanges.vue";
 export default {
   name: "Playlist",
@@ -134,6 +167,8 @@ export default {
       isLoading: false,
       addedSongs: [],
       deletedSongs: [],
+      commitsDialog: false,
+      dayjs,
     };
   },
   created() {
@@ -155,11 +190,21 @@ export default {
           name: this.playlist.name,
           description: this.playlist.description ?? "",
         })
-        .then(({data}) => {
+        .then(({ data }) => {
           //open in new tab
           window.open(data, "_blank");
           alert("Playlist exported successfully!");
         });
+    },
+    deletePlaylist() {
+      const isConfirmed = confirm(
+        "Are you sure you want to delete this playlist?"
+      );
+      if (!isConfirmed) return;
+
+      this.$http.delete("/playlists/delete?id=" + this.playlist.id).then(() => {
+        this.$router.replace("/home");
+      });
     },
 
     searchSongs() {
@@ -224,10 +269,12 @@ export default {
 }
 
 .deleted {
-
-  .d-block *{
-    text-decoration: line-through
+  img {
+    filter: grayscale(100%);
   }
-  
+
+  .d-block * {
+    text-decoration: line-through;
+  }
 }
 </style>

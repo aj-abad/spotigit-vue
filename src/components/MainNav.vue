@@ -1,6 +1,25 @@
 <template>
   <nav class="main-nav">
     <v-list color="primarylighter">
+      <form class="pa-4" @submit.prevent="search()">
+        <div class="d-flex">
+          <v-text-field
+            filled
+            label="Search for playlists and users"
+            outlined
+            dense
+            v-model.trim="keyword"
+          />
+          <v-btn
+            type="submit"
+            style="height: 40px"
+            elevation="0"
+            color="primary"
+          >
+            Search
+          </v-btn>
+        </div>
+      </form>
       <v-list-item-group color="primary">
         <v-list-item to="/home">
           <v-list-item-icon>
@@ -26,10 +45,19 @@
 <script>
 export default {
   name: "MainNav",
+  data() {
+    return {
+      keyword: "",
+    };
+  },
   methods: {
     signOut() {
       this.$store.dispatch("signOut");
-      this.$router.replace("/")
+      this.$router.replace("/");
+    },
+    search() {
+      this.$router.push("/")
+      this.$router.push(`/search?q=${this.keyword}`);
     },
   },
 };
@@ -41,7 +69,7 @@ export default {
   height: 100%;
   border-right: 1px solid var(--v-primarylight-base);
   background: var(--v-primarylighter-base);
-  flex-shrink: 0
+  flex-shrink: 0;
 }
 
 @media (max-width: 960px) {
